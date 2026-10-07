@@ -1,85 +1,49 @@
-let currentLang = 'ar';
+// خيال - منصة المبدعين
+let works = JSON.parse(localStorage.getItem('khayal_works') || '[]');
 
-function toggleLanguage() {
-    currentLang = currentLang === 'ar' ? 'en' : 'ar';
-    document.documentElement.lang = currentLang;
-    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'English' : 'عربي';
-
-    // ترجمة النصوص
-    document.querySelectorAll('[data-ar]').forEach(el => {
-        el.innerText = el.getAttribute(`data-${currentLang}`);
-    });
-
-    // ترجمة خانات الإدخال (Placeholders)
-    document.querySelectorAll('[data-ar-placeholder]').forEach(input => {
-        input.placeholder = input.getAttribute(`data-${currentLang}-placeholder`);
-    });
+function login(){
+  const email = document.getElementById('email').value;
+  if(!email){ alert('اكتبي إيميلك'); return; }
+  alert('أهلاً بك في خيال 💜 تم الدخول!');
+  localStorage.setItem('khayal_user', email);
 }
 
-function login() {
-    const email = document.getElementById('email').value;
-    if(email) {
-        document.getElementById('userStatus').innerText = email;
-        document.getElementById('authSection').classList.add('hidden');
-        document.getElementById('subSection').classList.remove('hidden');
-    } else {
-        alert(currentLang === 'ar' ? 'يرجى كتابة البريد الإلكتروني' : 'Please enter your email');
-    }
+function addWork(){
+  const title = document.getElementById('workTitle').value;
+  const desc = document.getElementById('workDesc').value;
+  const link = document.getElementById('canvaLink').value;
+  const type = document.getElementById('uploadType').value;
+  
+  if(!title){ alert('اكتبي عنوان العمل'); return; }
+  
+  const newWork = { title, desc, link, type, likes: 0, date: new Date().toLocaleDateString('ar-SA') };
+  works.unshift(newWork);
+  localStorage.setItem('khayal_works', JSON.stringify(works));
+  renderWorks();
+  document.getElementById('workTitle').value = '';
+  document.getElementById('workDesc').value = '';
+  document.getElementById('canvaLink').value = '';
+  alert('تم نشر عملك في المنصة 🎨');
 }
 
-function activateSub() {
-    document.getElementById('subSection').classList.add('hidden');
-    document.getElementById('dashboardSection').classList.remove('hidden');
-    document.getElementById('feedSection').classList.remove('hidden');
-    document.getElementById('supportSection').classList.remove('hidden');
-    alert(currentLang === 'ar' ? 'تم تفعيل شهرك المجاني بنجاح! 🥳' : 'Free trial activated successfully! 🥳');
+function renderWorks(){
+  const list = document.getElementById('worksList');
+  if(!list) return;
+  if(works.length === 0){
+    list.innerHTML = '<div class="card" style="grid-column:1/-1;text-align:center">لا يوجد أعمال بعد.. كوني أول مبدعة تنشر ✨</div>';
+    return;
+  }
+  list.innerHTML = works.map((w,i) => `
+    <div class="card">
+      <h3>${w.title}</h3>
+      <p style="color:#6b7280;font-size:14px;margin:8px 0">${w.desc || 'بدون وصف'}</p>
+      ${w.link ? `<a href="${w.link}" target="_blank" style="color:#7c3aed;font-weight:700">🔗 مشاهدة العمل</a>` : ''}
+      <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#9ca3af">
+        <span>❤️ ${w.likes}</span><span>${w.date}</span>
+      </div>
+    </div>
+  `).join('');
 }
 
-function toggleUploadType() {
-    const type = document.getElementById('uploadType').value;
-    if(type === 'canva') {
-        document.getElementById('canvaInput').classList.remove('hidden');
-        document.getElementById('fileInput').classList.add('hidden');
-    } else {
-        document.getElementById('canvaInput').classList.add('hidden');
-        document.getElementById('fileInput').classList.remove('hidden');
-    }
-}
-
-function addWork() {
-    const title = document.getElementById('workTitle').value;
-    const desc = document.getElementById('workDesc').value;
-    const type = document.getElementById('uploadType').value;
-    
-    if(!title) {
-        alert(currentLang === 'ar' ? 'يرجى إدخال عنوان العمل' : 'Please enter project title');
-        return;
-    }
-
-    const list = document.getElementById('worksList');
-    const card = document.createElement('div');
-    card.style.cssText = 'background:var(--input-bg); padding:15px; border-radius:12px; margin-top:10px; border:1px solid var(--border);';
-    
-    let linkContent = '';
-    if(type === 'canva') {
-        const url = document.getElementById('canvaLink').value;
-        linkContent = url ? `<p><a href="${url}" target="_blank" style="color:var(--accent);">🔗 ${currentLang === 'ar' ? 'عرض المشروع' : 'View Project'}</a></p>` : '';
-    } else {
-        linkContent = `<p style="color:var(--accent);">📄 ${currentLang === 'ar' ? 'ملف مرفق جاهز' : 'Attached File Ready'}</p>`;
-    }
-
-    card.innerHTML = `
-        <h4 style="color:var(--primary); font-size:1.1rem;">${title}</h4>
-        <p style="margin:8px 0; font-size:0.95rem;">${desc}</p>
-        ${linkContent}
-    `;
-
-    list.prepend(card);
-    alert(currentLang === 'ar' ? 'تم نشر العمل بنجاح! 🚀' : 'Work published successfully! 🚀');
-
-    document.getElementById('workTitle').value = '';
-    document.getElementById('workDesc').value = '';
-    document.getElementById('canvaLink').value = '';
-}
-
+// أول ما يفتح الموقع
+document.addEventListener('DOMContentLoaded', renderWorks);
