@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة خيال | Khayal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🟢 منصة خيال</div>
+        <span id="userStatus">غير مسجل</span>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. تسجيل الدخول -->
+        <div id="authSection" class="card">
+            <h2>تسجيل الدخول / حساب جديد 🔐</h2>
+            <input type="email" id="email" placeholder="البريد الإلكتروني (Gmail)">
+            <input type="password" id="password" placeholder="كلمة المرور">
+            <button class="btn" onclick="login()">دخول / تسجيل</button>
+        </div>
+        <!-- 2. الاشتراك وطرق الدفع -->
+        <div id="subSection" class="card hidden">
+            <h2>خطة الاشتراك ✨</h2>
+            <div class="badge">
+                🎁 تجربة مجانية لمدة شهر كامل! <br>
+                <span>ثم 9 ريال فقط شهرياً</span>
+            </div>
+            <p>طرق الدفع المتاحة بعد الشهر المجاني:</p>
+            <div class="payments">
+                <span> Pay</span>
+                <span>🏦 الراجحي</span>
+                <span>💳 مدى / البطاقات</span>
+            </div>
+            <br>
+            <button class="btn" onclick="activateSub()">تفعيل الشهر المجاني الآن 🚀</button>
+        </div>
+
+        <!-- 3. مساحة نشر الأعمال (Canva + PDF) -->
+        <div id="dashboardSection" class="card hidden">
+            <h2>مساحتك الخاصة ونشر الأعمال 🎨</h2>
+            <input type="text" id="workTitle" placeholder="عنوان العمل أو المشروع">
+            <textarea id="workDesc" rows="3" placeholder="وصف التصميم..."></textarea>
+            
+            <label>طريقة إضافة العمل:</label>
+            <select id="uploadType" onchange="toggleUploadType()">
+                <option value="canva">🔗 رابط من Canva / موقع خارجي</option>
+                <option value="pdf">📄 رفع ملف PDF / صورة</option>
+            </select>
+
+            <div id="canvaInput">
+                <input type="url" id="canvaLink" placeholder="ضع رابط مشروعك من Canva هنا">
+            </div>
+
+            <div id="fileInput" class="hidden">
+                <input type="file" id="fileUpload" accept="application/pdf,image/*">
+            </div>
+
+            <label>مستوى الخصوصية:</label>
+            <select id="workPrivacy">
+                <option value="public">🌐 عام (يمكن للجميع رؤيته والتعليق عليه)</option>
+                <option value="private">🔒 خاص (محفوظ لك فقط)</option>
+            </select>
+            
+            <button class="btn" onclick="addWork()">نشر العمل ➕</button>
+        </div>
+        <!-- 4. معرض الأعمال -->
+        <div id="feedSection" class="card hidden">
+            <h2>معرض الأعمال والتعليقات 💬</h2>
+            <div id="worksList"></div>
+        </div>
+
+        <!-- 5. الدعم الفني والملاحظات (تصل لإيميلك) -->
+        <div id="supportSection" class="card hidden">
+            <h2>الدعم الفني والملاحظات 📩</h2>
+            <p>شاركينا برأيك أو أي مشكلة لتطوير منصة خيال:</p>
+            <form action="https://formsubmit.co/asayelalmutairi111@gmail.com" method="POST" target="_blank">
+                <input type="hidden" name="_subject" value="رسالة جديدة من منصة خيال!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="email" name="email" placeholder="بريدك للتواصل" required>
+                <textarea name="message" rows="3" placeholder="اكتبي اقتراحك أو ملاحظتك هنا..." required></textarea>
+                <button type="submit" class="btn" style="background:#2E6F40;">إرسال لإدارة المنصة 📬</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
