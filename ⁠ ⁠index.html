@@ -3,87 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة خيال | Khayal</title>
+    <title>منصة خيال | Khayal Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <div class="logo">🟢 منصة خيال</div>
-        <span id="userStatus">غير مسجل</span>
+        <div class="logo">🟢 <span data-ar="منصة خيال" data-en="Khayal Platform">منصة خيال</span></div>
+        <div class="header-controls">
+            <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">English</button>
+            <span id="userStatus" data-ar="غير مسجل" data-en="Guest">غير مسجل</span>
+        </div>
     </header>
 
     <div class="container">
 
         <!-- 1. تسجيل الدخول -->
         <div id="authSection" class="card">
-            <h2>تسجيل الدخول / حساب جديد 🔐</h2>
-            <input type="email" id="email" placeholder="البريد الإلكتروني (Gmail)">
-            <input type="password" id="password" placeholder="كلمة المرور">
-            <button class="btn" onclick="login()">دخول / تسجيل</button>
-        </div>
-        <!-- 2. الاشتراك وطرق الدفع -->
-        <div id="subSection" class="card hidden">
-            <h2>خطة الاشتراك ✨</h2>
-            <div class="badge">
-                🎁 تجربة مجانية لمدة شهر كامل! <br>
-                <span>ثم 9 ريال فقط شهرياً</span>
-            </div>
-            <p>طرق الدفع المتاحة بعد الشهر المجاني:</p>
-            <div class="payments">
-                <span> Pay</span>
-                <span>🏦 الراجحي</span>
-                <span>💳 مدى / البطاقات</span>
-            </div>
-            <br>
-            <button class="btn" onclick="activateSub()">تفعيل الشهر المجاني الآن 🚀</button>
+            <h2 data-ar="تسجيل الدخول / حساب جديد 🔐" data-en="Login / Sign Up 🔐">تسجيل الدخول / حساب جديد 🔐</h2>
+            <input type="email" id="email" data-ar-placeholder="البريد الإلكتروني (Gmail)" data-en-placeholder="Email Address (Gmail)" placeholder="البريد الإلكتروني (Gmail)">
+            <input type="password" id="password" data-ar-placeholder="كلمة المرور" data-en-placeholder="Password" placeholder="كلمة المرور">
+            <button class="btn" onclick="login()" data-ar="دخول / تسجيل" data-en="Login / Register">دخول / تسجيل</button>
         </div>
 
-        <!-- 3. مساحة نشر الأعمال (Canva + PDF) -->
+        <!-- 2. الاشتراك وطرق الدفع -->
+        <div id="subSection" class="card hidden">
+            <h2 data-ar="خطة الاشتراك ✨" data-en="Subscription Plan ✨">خطة الاشتراك ✨</h2>
+            <div class="badge">
+                🎁 <span data-ar="تجربة مجانية لمدة شهر كامل!" data-en="1 Month Free Trial!">تجربة مجانية لمدة شهر كامل!</span><br>
+                <span data-ar="ثم 9 ريال فقط شهرياً" data-en="Then 9 SAR / month">ثم 9 ريال فقط شهرياً</span>
+            </div>
+            <p data-ar="طرق الدفع المتاحة بعد الشهر المجاني:" data-en="Available payment methods after free trial:">طرق الدفع المتاحة بعد الشهر المجاني:</p>
+            <div class="payments">
+                <span> Pay</span>
+                <span>🏦 Al Rajhi</span>
+                <span>💳 mada / Cards</span>
+            </div>
+            <br>
+            <button class="btn" onclick="activateSub()" data-ar="تفعيل الشهر المجاني الآن 🚀" data-en="Activate Free Trial Now 🚀">تفعيل الشهر المجاني الآن 🚀</button>
+        </div>
+
+        <!-- 3. مساحة نشر الأعمال -->
         <div id="dashboardSection" class="card hidden">
-            <h2>مساحتك الخاصة ونشر الأعمال 🎨</h2>
-            <input type="text" id="workTitle" placeholder="عنوان العمل أو المشروع">
-            <textarea id="workDesc" rows="3" placeholder="وصف التصميم..."></textarea>
+            <h2 data-ar="مساحتك الخاصة ونشر الأعمال 🎨" data-en="Your Workspace & Publishing 🎨">مساحتك الخاصة ونشر الأعمال 🎨</h2>
+            <input type="text" id="workTitle" data-ar-placeholder="عنوان العمل أو المشروع" data-en-placeholder="Project Title" placeholder="عنوان العمل أو المشروع">
+            <textarea id="workDesc" rows="3" data-ar-placeholder="وصف التصميم..." data-en-placeholder="Design Description..." placeholder="وصف التصميم..."></textarea>
             
-            <label>طريقة إضافة العمل:</label>
+            <label data-ar="طريقة إضافة العمل:" data-en="Method to add work:">طريقة إضافة العمل:</label>
             <select id="uploadType" onchange="toggleUploadType()">
-                <option value="canva">🔗 رابط من Canva / موقع خارجي</option>
-                <option value="pdf">📄 رفع ملف PDF / صورة</option>
+                <option value="canva" data-ar="🔗 رابط من Canva / موقع خارجي" data-en="🔗 Canva / External Link">🔗 رابط من Canva / موقع خارجي</option>
+                <option value="pdf" data-ar="📄 رفع ملف PDF / صورة" data-en="📄 Upload PDF / Image">📄 رفع ملف PDF / صورة</option>
             </select>
 
             <div id="canvaInput">
-                <input type="url" id="canvaLink" placeholder="ضع رابط مشروعك من Canva هنا">
+                <input type="url" id="canvaLink" data-ar-placeholder="ضع رابط مشروعك من Canva هنا" data-en-placeholder="Paste your Canva link here" placeholder="ضع رابط مشروعك من Canva هنا">
             </div>
 
             <div id="fileInput" class="hidden">
                 <input type="file" id="fileUpload" accept="application/pdf,image/*">
             </div>
 
-            <label>مستوى الخصوصية:</label>
+            <label data-ar="مستوى الخصوصية:" data-en="Privacy Level:">مستوى الخصوصية:</label>
             <select id="workPrivacy">
-                <option value="public">🌐 عام (يمكن للجميع رؤيته والتعليق عليه)</option>
-                <option value="private">🔒 خاص (محفوظ لك فقط)</option>
+                <option value="public" data-ar="🌐 عام (يمكن للجميع رؤيته والتعليق عليه)" data-en="🌐 Public (Everyone can see & comment)">🌐 عام (يمكن للجميع رؤيته والتعليق عليه)</option>
+                <option value="private" data-ar="🔒 خاص (محفوظ لك فقط)" data-en="🔒 Private (Visible to you only)">🔒 خاص (محفوظ لك فقط)</option>
             </select>
             
-            <button class="btn" onclick="addWork()">نشر العمل ➕</button>
+            <button class="btn" onclick="addWork()" data-ar="نشر العمل ➕" data-en="Publish Work ➕">نشر العمل ➕</button>
         </div>
+
         <!-- 4. معرض الأعمال -->
         <div id="feedSection" class="card hidden">
-            <h2>معرض الأعمال والتعليقات 💬</h2>
+            <h2 data-ar="معرض الأعمال والتعليقات 💬" data-en="Showcase & Comments 💬">معرض الأعمال والتعليقات 💬</h2>
             <div id="worksList"></div>
         </div>
 
-        <!-- 5. الدعم الفني والملاحظات (تصل لإيميلك) -->
+        <!-- 5. الدعم الفني -->
         <div id="supportSection" class="card hidden">
-            <h2>الدعم الفني والملاحظات 📩</h2>
-            <p>شاركينا برأيك أو أي مشكلة لتطوير منصة خيال:</p>
+            <h2 data-ar="الدعم الفني والملاحظات 📩" data-en="Support & Feedback 📩">الدعم الفني والملاحظات 📩</h2>
+            <p data-ar="شاركينا برأيك أو أي مشكلة لتطوير منصة خيال:" data-en="Share your thoughts to help improve Khayal:">شاركينا برأيك أو أي مشكلة لتطوير منصة خيال:</p>
             <form action="https://formsubmit.co/asayelalmutairi111@gmail.com" method="POST" target="_blank">
                 <input type="hidden" name="_subject" value="رسالة جديدة من منصة خيال!">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="email" name="email" placeholder="بريدك للتواصل" required>
-                <textarea name="message" rows="3" placeholder="اكتبي اقتراحك أو ملاحظتك هنا..." required></textarea>
-                <button type="submit" class="btn" style="background:#2E6F40;">إرسال لإدارة المنصة 📬</button>
+                <input type="email" name="email" data-ar-placeholder="بريدك للتواصل" data-en-placeholder="Your Email" placeholder="بريدك للتواصل" required>
+                <textarea name="message" rows="3" data-ar-placeholder="اكتبي اقتراحك أو ملاحظتك هنا..." data-en-placeholder="Write your feedback here..." placeholder="اكتبي اقتراحك أو ملاحظتك هنا..." required></textarea>
+                <button type="submit" class="btn" style="background:var(--accent);" data-ar="إرسال لإدارة المنصة 📬" data-en="Send to Admin 📬">إرسال لإدارة المنصة 📬</button>
             </form>
         </div>
 
