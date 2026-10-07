@@ -82,3 +82,4 @@ function addWork() {
     document.getElementById('workDesc').value = '';
     document.getElementById('canvaLink').value = '';
 }
+
